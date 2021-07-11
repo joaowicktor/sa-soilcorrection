@@ -2,12 +2,12 @@ package edu.utfpr.cp.dacom.sa.soilcorrection;
 
 import java.util.Set;
 
-public class FonteCalcio implements IFonteNutriente {
+public class FonteCalcioMagnesio implements IFonteNutriente {
 
 	private final double teorFonte;
 	private final Set<NutrienteAdicional> nutrientesAdicionais;
 	
-	FonteCalcio(double teorFonte, final Set<NutrienteAdicional> nutrientesAdicionais) {
+	FonteCalcioMagnesio(double teorFonte, final Set<NutrienteAdicional> nutrientesAdicionais) {
 		this.teorFonte = teorFonte;
 		this.nutrientesAdicionais = nutrientesAdicionais;
 	}
