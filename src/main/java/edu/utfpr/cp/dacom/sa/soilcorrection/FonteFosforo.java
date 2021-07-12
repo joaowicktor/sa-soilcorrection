@@ -4,7 +4,7 @@ import java.util.Set;
 
 public enum FonteFosforo implements IFonteNutriente {
     SUPERFOSFATO_SIMPLES(0.18, Set.of(new NutrienteAdicional(NomeNutrienteAdicional.ENXOFRE, 0.1), new NutrienteAdicional(NomeNutrienteAdicional.CALCIO, 0.28))),
-    SUPERFOSFATO_TRIPO(0.41, Set.of(new NutrienteAdicional(NomeNutrienteAdicional.CALCIO, 0.2))),
+    SUPERFOSFATO_TRIPLO(0.41, Set.of(new NutrienteAdicional(NomeNutrienteAdicional.CALCIO, 0.2))),
     MAP(0.48, Set.of(new NutrienteAdicional(NomeNutrienteAdicional.CALCIO, 0.09))),
     DAP(0.45, Set.of()),
     TERMOFOSFATO_YOORIN(0.18, Set.of()),
