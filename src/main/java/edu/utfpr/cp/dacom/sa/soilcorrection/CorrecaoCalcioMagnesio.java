@@ -58,28 +58,29 @@ public class CorrecaoCalcioMagnesio implements ICorrecaoNutriente<FonteCalcioMag
 	
 	public double calcQtdCaOAdicionadoFosfatagemPorHectare(FonteFosforo fonteFosforo, double teorFosforoAtingir, double valorFosforo, double eficienciaFosforo) {
 		var correcaoFosforo = new CorrecaoFosforo();
-		var P2O5 = new ConverteKgHaEmP2O5().converte(correcaoFosforo.calcNecessidadeFosforoAAdicionar(teorFosforoAtingir, valorFosforo) * 2);
-		var H16 = P2O5 * 100 / eficienciaFosforo / 100;
-		double B22 = H16 * 100 / (fonteFosforo.getTeorFonte());
-		double B24 = B22 * 2.42;
-		double M22;
+		var pentoxidoDeFosforoEmKgHa = new ConverteKgHaEmP2O5().converte(correcaoFosforo.calcNecessidadeFosforoAAdicionar(teorFosforoAtingir, valorFosforo) * 2);
+		var pentoxidoDeFosforo = pentoxidoDeFosforoEmKgHa / eficienciaFosforo;
+		double quantidadeAplicarPorHectare = pentoxidoDeFosforo * 100 / (fonteFosforo.getTeorFonte());
+		double quantidadeAplicarPorAlqueire = quantidadeAplicarPorHectare * 2.42;
+		double quantidadeAplicarBaseadoFonteFosforo;
 		
 		switch (fonteFosforo) {
-			case SUPERFOSFATO_SIMPLES: M22 = B24 * 0.28; break;
-			case SUPERFOSFATO_TRIPLO: M22 = B24 * 0.2; break;
-			case MAP: M22 = B24 * 0.09; break;
-			case DAP: M22 = B24 * 0.16; break;
-			case TERMOFOSFATO_YOORIN: M22 = B24 * 0.28; break;
-			case FOSFATO_REATIVO_ARAD: M22 = B24 * 0.52; break;
-			case FOSFATO_REATIVO_GAFSA: M22 = B24 * 0.52; break;
-			case FOSFATO_REATIVO_DAOUI: M22 = B24 * 0.45; break;
-			case FOSFATO_PATOS_DE_MINAS: M22 = B24 * 0.28; break;
-			case ESCORIA_DE_THOMAS: M22 = B24 * 0.44; break;
-			case ACIDO_FOSFORICO: M22 = B24 * 0; break;
-			case MULTIFOSFATO_MAGNESIANO: M22 = B24 * 0.18; break;
-			default: M22 = B24 * 0;
+			case SUPERFOSFATO_SIMPLES: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.28; break;
+			case SUPERFOSFATO_TRIPLO: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.2; break;
+			case MAP: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.09; break;
+			case DAP: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.16; break;
+			case TERMOFOSFATO_YOORIN: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.28; break;
+			case FOSFATO_REATIVO_ARAD: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.52; break;
+			case FOSFATO_REATIVO_GAFSA: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.52; break;
+			case FOSFATO_REATIVO_DAOUI: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.45; break;
+			case FOSFATO_PATOS_DE_MINAS: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.28; break;
+			case ESCORIA_DE_THOMAS: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.44; break;
+			case ACIDO_FOSFORICO: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0; break;
+			case MULTIFOSFATO_MAGNESIANO: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.18; break;
+			default: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0;
 		}
-		return (M22/2.42) * this.calcQtdCaOAdicionadoFosfatagem(fonteFosforo) / 1000;
+		
+		return (quantidadeAplicarBaseadoFonteFosforo/2.42) * this.calcQtdCaOAdicionadoFosfatagem(fonteFosforo) / 1000;
 	}
 	
 	public double calcTeorCaOaAdicionar(
