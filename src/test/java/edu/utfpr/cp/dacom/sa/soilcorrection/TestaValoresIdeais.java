@@ -46,31 +46,31 @@ public class TestaValoresIdeais {
 
         @Test
         public void testaCalculaSCmol() {
-                assertEquals(7.54, new EquilibrioCorrecaoCTC().calculaSCmol(0.15, 5.76, 1.63));
+                assertEquals(7.54, EquilibrioCorrecaoCTC.calculaSCmol(0.15, 5.76, 1.63));
 
         }
 
         @Test
         public void testaCalculaCTCCmol() {
-                assertEquals(12.89, new EquilibrioCorrecaoCTC().calculaCTCCmol(0.15, 5.76, 1.63, 5.35));
+                assertEquals(12.89, EquilibrioCorrecaoCTC.calculaCTCCmol(0.15, 5.76, 1.63, 5.35));
         }
 
         @Test
         public void testaVPercentual() {
                 assertEquals(58.494957331264544,
-                                new EquilibrioCorrecaoCTC().calculaVPercentual(
-                                                new EquilibrioCorrecaoCTC().calculaSCmol(0.15, 5.76, 1.63),
-                                                new EquilibrioCorrecaoCTC().calculaCTCCmol(0.15, 5.76, 1.63, 5.35)));
+                                EquilibrioCorrecaoCTC.calculaVPercentual(
+                                                EquilibrioCorrecaoCTC.calculaSCmol(0.15, 5.76, 1.63),
+                                                EquilibrioCorrecaoCTC.calculaCTCCmol(0.15, 5.76, 1.63, 5.35)));
         }
 
         @Test
         public void testaMOPercentual() {
-                assertEquals(3.07, new EquilibrioCorrecaoCTC().calculaMOPercentual(30.7));
+                assertEquals(3.07, EquilibrioCorrecaoCTC.calculaMOPercentual(30.7));
         }
 
         @Test
         public void testaCalculaCarbono() {
-                assertEquals(17.848837209302324, new EquilibrioCorrecaoCTC()
-                                .calculaCarbono(new EquilibrioCorrecaoCTC().calculaMOPercentual(30.7)));
+                assertEquals(17.848837209302324, EquilibrioCorrecaoCTC
+                                .calculaCarbono(EquilibrioCorrecaoCTC.calculaMOPercentual(30.7)));
         }
 }

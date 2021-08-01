@@ -1,5 +1,8 @@
 package edu.utfpr.cp.dacom.sa.soilcorrection;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class EquilibrioCorrecaoCTC {
 
     double calculaSCmol(
