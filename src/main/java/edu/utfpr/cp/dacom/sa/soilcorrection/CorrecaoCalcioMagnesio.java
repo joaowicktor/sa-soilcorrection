@@ -1,131 +1,20 @@
 package edu.utfpr.cp.dacom.sa.soilcorrection;
 
-public class CorrecaoCalcioMagnesio implements ICorrecaoNutriente<FonteCalcioMagnesio> {
-	
-	public double calcParticipacaoAtualCalcioCTCSolo(double valorPotassio, double valorCalcio, double valorMagnesio, double acidezPotencial) {
-		double ctcCmol = new EquilibrioCorrecaoCTC().calculaCTCCmol(valorPotassio, valorCalcio, valorMagnesio, acidezPotencial);
-		
-		if (ctcCmol <= 0 || valorCalcio <= 0) {
-			throw new IllegalArgumentException();
-		}
-		
-		return valorCalcio / ctcCmol * 100;
-	}
-	
-	public double calcParticipacaoAtualMagnesioCTCSolo(double valorPotassio, double valorCalcio, double valorMagnesio, double acidezPotencial) {
-		double ctcCmol = new EquilibrioCorrecaoCTC().calculaCTCCmol(valorPotassio, valorCalcio, valorMagnesio, acidezPotencial);
-		
-		if (ctcCmol <= 0 || valorMagnesio <= 0) {
-			throw new IllegalArgumentException();
-		}
-		
-		return valorMagnesio / ctcCmol * 100;
-	}
-	
-	public String participacaoIdealCalcioCTCSolo(TexturaSolo texturaSolo) {
-		switch (texturaSolo) {
-			case ARGILOSO: return "45 a 55";
-			case TEXTURA_MEDIA: return "35 a 40";
-			default: return "";
-		}
-	}
-	
-	public String participacaoIdealMagnesioCTCSolo(TexturaSolo texturaSolo) {
-		switch (texturaSolo) {
-			case ARGILOSO: return "10 a 15";
-			case TEXTURA_MEDIA: return "8 a 12";
-			default: return "";
-		}
-	}
-	
-	public double calcQtdCaOAdicionadoFosfatagem(FonteFosforo fonteFosforo) {
-		switch (fonteFosforo) {
-			case SUPERFOSFATO_SIMPLES: return 0.49924;
-			case SUPERFOSFATO_TRIPLO: return 0.33877;
-			case MAP: return 0.0;
-			case DAP: return 0.0;
-			case TERMOFOSFATO_YOORIN: return 0.49924;
-			case FOSFATO_REATIVO_ARAD: return 0.92716;
-			case FOSFATO_REATIVO_GAFSA: return 0.92716;
-			case FOSFATO_REATIVO_DAOUI: return 0.80235;
-			case FOSFATO_PATOS_DE_MINAS: return 0.795218;
-			case ESCORIA_DE_THOMAS: return 0.49924;
-			case ACIDO_FOSFORICO: return 0.0;
-			case MULTIFOSFATO_MAGNESIANO: return 0.0;
-			default: return 0.0;
-		}
-	}
-	
-	public double calcQtdCaOAdicionadoFosfatagemPorHectare(FonteFosforo fonteFosforo, double teorFosforoAtingir, double valorFosforo, double eficienciaFosforo) {
-		var correcaoFosforo = new CorrecaoFosforo();
-		var pentoxidoDeFosforoEmKgHa = new ConverteKgHaEmP2O5().converte(correcaoFosforo.calcNecessidadeFosforoAAdicionar(teorFosforoAtingir, valorFosforo) * 2);
-		var pentoxidoDeFosforo = pentoxidoDeFosforoEmKgHa / eficienciaFosforo;
-		double quantidadeAplicarPorHectare = pentoxidoDeFosforo * 100 / (fonteFosforo.getTeorFonte());
-		double quantidadeAplicarPorAlqueire = quantidadeAplicarPorHectare * 2.42;
-		double quantidadeAplicarBaseadoFonteFosforo;
-		
-		switch (fonteFosforo) {
-			case SUPERFOSFATO_SIMPLES: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.28; break;
-			case SUPERFOSFATO_TRIPLO: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.2; break;
-			case MAP: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.09; break;
-			case DAP: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.16; break;
-			case TERMOFOSFATO_YOORIN: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.28; break;
-			case FOSFATO_REATIVO_ARAD: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.52; break;
-			case FOSFATO_REATIVO_GAFSA: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.52; break;
-			case FOSFATO_REATIVO_DAOUI: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.45; break;
-			case FOSFATO_PATOS_DE_MINAS: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.28; break;
-			case ESCORIA_DE_THOMAS: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.44; break;
-			case ACIDO_FOSFORICO: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0; break;
-			case MULTIFOSFATO_MAGNESIANO: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0.18; break;
-			default: quantidadeAplicarBaseadoFonteFosforo = quantidadeAplicarPorAlqueire * 0;
-		}
-		
-		return (quantidadeAplicarBaseadoFonteFosforo/2.42) * this.calcQtdCaOAdicionadoFosfatagem(fonteFosforo) / 1000;
-	}
-	
-	public double calcTeorCaOaAdicionar(
-		double valorCalcio, 
-		double participacaoDeCalcioNaCTCDesejada, 
-		double participacaoAtualDeCalcioNaCTC,
-		double qtdCaOFosfatagem
-	) {
-		return (valorCalcio * participacaoDeCalcioNaCTCDesejada / participacaoAtualDeCalcioNaCTC) - valorCalcio - qtdCaOFosfatagem;
-	}
-	
-	public double calcQuantidadeCorretivo(double qtdeCaOAdicionadaFosfatagem, double teorCaOAdicionar, double teorCaOCorretivo) {
-		var qtdeCalcioAdicionadaTotal = (teorCaOCorretivo * 0.01783) + qtdeCaOAdicionadaFosfatagem;
-		
-		return teorCaOAdicionar / qtdeCalcioAdicionadaTotal;
-	}
+public class CorrecaoCalcioMagnesio 
+        implements ICorrecaoNutriente<FonteCalcioMagnesio> {
 
-	public double calcQuantidadeAplicarPorHectare(double qtdeCorretivo, double prnt) {
+    public double calculaQuantidadeAplicar(
+        double qtdeFonteAdicionar, 
+        double prntPercent) {
 
-        if (qtdeCorretivo <= 0 || prnt <= 0) {
+        if (qtdeFonteAdicionar <= 0) {
             throw new IllegalArgumentException();
         }
 
-        return qtdeCorretivo * 100 / prnt;
+        if (prntPercent <= 0) {
+            throw new IllegalArgumentException();
+        }
+
+        return qtdeFonteAdicionar / prntPercent;
     }
-	
-	public double calcQuantidadeAplicarPorAlqueire(double qtdeAplicarPorHectare) {
-
-        if (qtdeAplicarPorHectare <= 0) {
-            throw new IllegalArgumentException();
-        }
-
-        return qtdeAplicarPorHectare * 2.42;
-    }
-	
-	@Override
-	public double calculaCusto(double custoFonte, double qtdeAplicar) {
-		if (custoFonte <= 0) {
-            throw new IllegalArgumentException();
-        }
-
-        if (qtdeAplicar <= 0) {
-            throw new IllegalArgumentException();
-        }
-
-        return custoFonte * qtdeAplicar / 2.42;
-	}
 }
