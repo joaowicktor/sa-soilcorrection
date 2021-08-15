@@ -1,7 +1,9 @@
-package edu.utfpr.cp.dacom.sa.soilcorrection;
+package edu.utfpr.cp.dacom.sa.soilcorrection.domain.enums;
 
 import java.util.Set;
 
+import edu.utfpr.cp.dacom.sa.soilcorrection.domain.entities.NutrienteAdicional;
+import edu.utfpr.cp.dacom.sa.soilcorrection.domain.interfaces.IFonteNutriente;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,6 @@
-package edu.utfpr.cp.dacom.sa.soilcorrection;
+package edu.utfpr.cp.dacom.sa.soilcorrection.domain.entities;
 
+import edu.utfpr.cp.dacom.sa.soilcorrection.domain.enums.NomeNutrienteAdicional;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

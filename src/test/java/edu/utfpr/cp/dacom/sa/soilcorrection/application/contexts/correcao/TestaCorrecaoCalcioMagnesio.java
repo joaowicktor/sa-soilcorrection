@@ -1,8 +1,11 @@
-package edu.utfpr.cp.dacom.sa.soilcorrection;
+package edu.utfpr.cp.dacom.sa.soilcorrection.application.contexts.correcao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+
+import edu.utfpr.cp.dacom.sa.soilcorrection.application.contexts.correcao.CorrecaoCalcioMagnesio;
+import edu.utfpr.cp.dacom.sa.soilcorrection.domain.enums.FonteCalcioMagnesio;
 
 public class TestaCorrecaoCalcioMagnesio {
 

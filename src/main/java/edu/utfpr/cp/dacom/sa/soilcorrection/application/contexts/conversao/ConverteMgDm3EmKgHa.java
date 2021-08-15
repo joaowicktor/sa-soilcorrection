@@ -1,4 +1,6 @@
-package edu.utfpr.cp.dacom.sa.soilcorrection;
+package edu.utfpr.cp.dacom.sa.soilcorrection.application.contexts.conversao;
+
+import edu.utfpr.cp.dacom.sa.soilcorrection.domain.interfaces.Conversao;
 
 public class ConverteMgDm3EmKgHa implements Conversao<Double, Double> {
 

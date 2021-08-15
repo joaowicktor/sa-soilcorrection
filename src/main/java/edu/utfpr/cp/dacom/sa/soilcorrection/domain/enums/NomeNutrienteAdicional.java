@@ -1,4 +1,4 @@
-package edu.utfpr.cp.dacom.sa.soilcorrection;
+package edu.utfpr.cp.dacom.sa.soilcorrection.domain.enums;
 
 public enum NomeNutrienteAdicional {
     ENXOFRE,

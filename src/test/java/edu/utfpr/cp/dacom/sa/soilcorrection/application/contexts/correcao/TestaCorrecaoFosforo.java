@@ -1,6 +1,11 @@
-package edu.utfpr.cp.dacom.sa.soilcorrection;
+package edu.utfpr.cp.dacom.sa.soilcorrection.application.contexts.correcao;
 
 import org.junit.jupiter.api.Test;
+
+import edu.utfpr.cp.dacom.sa.soilcorrection.application.contexts.conversao.ConverteKgHaEmP2O5;
+import edu.utfpr.cp.dacom.sa.soilcorrection.application.contexts.conversao.ConverteMgDm3EmKgHa;
+import edu.utfpr.cp.dacom.sa.soilcorrection.application.contexts.correcao.CorrecaoFosforo;
+import edu.utfpr.cp.dacom.sa.soilcorrection.domain.enums.FonteFosforo;
 
 import static org.junit.jupiter.api.Assertions.*;
 

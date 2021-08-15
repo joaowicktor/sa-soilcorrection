@@ -1,8 +1,13 @@
-package edu.utfpr.cp.dacom.sa.soilcorrection;
+package edu.utfpr.cp.dacom.sa.soilcorrection.application.contexts.correcao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import edu.utfpr.cp.dacom.sa.soilcorrection.application.contexts.conversao.ConverteCMolcDm3EmMgDm3;
+import edu.utfpr.cp.dacom.sa.soilcorrection.application.contexts.conversao.ConverteKgHaEmK2O;
+import edu.utfpr.cp.dacom.sa.soilcorrection.application.contexts.correcao.CorrecaoPotassio;
+import edu.utfpr.cp.dacom.sa.soilcorrection.domain.enums.FontePotassio;
 
 public class TestaCorrecaoPotassio {
 
